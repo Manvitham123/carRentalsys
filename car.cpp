@@ -27,15 +27,23 @@ void car::setType(string t){
   this->type = t;
 
 }
+void car::setAvailability(bool a){
+  available = a;
+  
+}
+bool car::getAvailability(){
+  return available;
+}
 car::car(){
 }
-car::car(double rentPrice, double maxPower, int mileage, int number, string type)
+car::car(double rentPrice, double maxPower, int mileage, int number, string type, bool availability)
 {
     this->rentPrice=rentPrice;
      this->maxPower=maxPower;
       this-> mileage=mileage;
        this->number=number;
        this->type = type;
+       this->available = availability;
     
 }
 
@@ -59,7 +67,7 @@ void fileCarDatabase::load(){
     while(getline(fin, line)){
         
         vector<string> tokens = getStringTokens(line, ',');
-        car *temp = new car(stod(tokens[0]), stod(tokens[1]), stoi(tokens[2]), stoi(tokens[3]), tokens[4]);
+        car *temp = new car(stod(tokens[0]), stod(tokens[1]), stoi(tokens[2]), stoi(tokens[3]), tokens[4],stoi(tokens[5]));
         carList.push_back(temp);
         for(auto s: typeList){
           if(s ==  tokens[4]){

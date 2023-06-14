@@ -6,7 +6,7 @@ using namespace std;
 class car{
     public:
     car();
-    car(double rentPrice, double maxPower, int mileage, int number, string type);
+    car(double rentPrice, double maxPower, int mileage, int number, string type, bool availability);
 
     double getrentPrice();
      double getModel();
@@ -15,6 +15,8 @@ class car{
      int getNumber();
      string getType();
      void setType(string t);
+     void setAvailability(bool a);
+     bool getAvailability();
     private:
     string type;
     string model;
@@ -22,6 +24,7 @@ class car{
     double maxPower;
     int mileage;
     int number;
+    bool available;
 
 
 };

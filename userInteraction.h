@@ -21,6 +21,10 @@ class userInteraction{
     bool getVerifiedUser();
    bool getChosenType();
    bool getChosenNumber();
+   int getDays();
+   void reset();
+ 
+   
     
 
 

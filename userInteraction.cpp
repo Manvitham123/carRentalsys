@@ -1,10 +1,12 @@
 #include <iostream>
 #include <vector>
 #include "userInteraction.h"
+#include <fstream>
+#include <string.h>
 
 using namespace std;
 
-userInteraction::userInteraction(string userFile, string carFile) : verifiedUser("0", "0"), chosen(0.0, 0.0, 0, 0, "none"), h(userFile), c(carFile)
+userInteraction::userInteraction(string userFile, string carFile) : verifiedUser("0", "0"), chosen(0.0, 0.0, 0, 0, "none",0), days(0), h(userFile), c(carFile)
 {
 }
 bool userInteraction::getVerifiedUser()
@@ -14,6 +16,10 @@ bool userInteraction::getVerifiedUser()
         return false;
     }
     return true;
+}
+
+int userInteraction::getDays(){
+    return days;
 }
 
 bool userInteraction::getChosenNumber()
@@ -76,7 +82,7 @@ vector<car> userInteraction::displayCarOptions()
     vector<car> filteredCars;
     for (auto cars : c.carList)
     {
-        if (cars->getType() == carType)
+        if (cars->getType() == carType && cars->getAvailability())
         {
             filteredCars.push_back(*cars);
             cout << "Car Id: " << cars->getNumber();
@@ -111,10 +117,20 @@ void userInteraction::chooseCar()
 
         for (auto cars : c.carList)
         {
+            
             if (cars->getNumber() == number && number != 0)
             {
+                if(cars->getAvailability() == true){
+                cars->setAvailability(false);
                 this->chosen = *cars;
+
+                }
+                else{
+                    cout<<"car unavailable try again"<<endl;
+                }
+                
                 count++;
+               
             }
         }
         if (count == 0)
@@ -129,15 +145,29 @@ void userInteraction::chooseCar()
 }
 void userInteraction::setNumberOfDays()
 {
-    int days1;
+    string day;
     cout << "how many days would you like to rent the car:" << endl;
-    cin >> days1;
-    days = days1;
-    invoice();
+    cin >> day;
+    try{
+        if(stoi(day) > 0){
+        days = stoi(day);
+        invoice();}
+        else{
+            cout<<"invalid input try again"<<endl;
+        }
+    }
+    catch (...)
+    {
+        cout << "Incorrect input please try again" << endl;
+    }
+    
 }
 
 void userInteraction::invoice()
+
 {
+   
+    
     cout << "Invoice for user: " << verifiedUser.getUsername() << endl;
     cout << endl;
     cout << "Car details: " << endl;
@@ -151,3 +181,31 @@ void userInteraction::invoice()
     cout << endl;
     cout << "Total: " <<"$" <<chosen.getrentPrice() * days  <<endl;
 }
+
+void userInteraction::reset(){
+     chosen = car(0.0, 0.0, 0, 0, "none",0);
+      days = 0;
+       std::ofstream ofs("car.txt", std::ofstream::trunc);
+        for (auto cars : c.carList){
+            ofs << to_string(cars->getrentPrice())<<",";
+            ofs << to_string(cars->getMaxpower())<<",";
+            ofs << to_string(cars->getMileage())<<",";
+            ofs << to_string(cars->getNumber())<<",";
+            ofs << cars->getType()<<",";
+            ofs << to_string(cars->getAvailability())<<endl;;
+
+
+
+        }
+
+
+       
+         ofs.close();
+
+
+}
+
+  
+
+
+   
