@@ -6,38 +6,30 @@ using namespace std;
 int main(){
     string again = "yes";
     userInteraction *interact =  new userInteraction("userData.txt", "car.txt");
+    interact->LoadCarData();
       interact->LoadUserData();
-     interact->LoadCarData();
+     
      interact->login();
     while (interact->getVerifiedUser()==false){
        interact->login();
      }
-    while(again == "yes"){
+    while(again == "yes" || again == "no"){
         interact->reset();
-  
 
-     interact->displayCarOptions();
-     while(interact->getChosenType()==false){
-             interact->displayCarOptions();
+     interact->loginOptions();
+     
 
-
-     }
-     interact->chooseCar();
-     while(interact->getChosenNumber()==false){
-         interact->chooseCar();
-
-     }
-     interact->setNumberOfDays();
-     while(interact->getDays()==0){
-          interact->setNumberOfDays();
-
-     }
+    interact->update();
     
-    cout << "would you like to rent another car? yes or no: " << endl;
+    cout << "if you would like to return to the main menu please type yes if not press any character" << endl;
     cin >> again;
+  
+    
     
 
     }
+
+
 
     
     return 0;

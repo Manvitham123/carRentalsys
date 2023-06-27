@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "userData.h"
-#include "car.h"
+
 
 
 using namespace std;
@@ -15,6 +15,8 @@ class userInteraction{
     void login();
     vector<car> displayCarOptions();
     vector<string> carRentalDetails(double number);
+    void loginOptions();
+    void displayRented();
     void chooseCar();
     void setNumberOfDays();
     void invoice();
@@ -23,6 +25,8 @@ class userInteraction{
    bool getChosenNumber();
    int getDays();
    void reset();
+   void update();
+   void returnCar(int num);
  
    
     
@@ -31,7 +35,7 @@ class userInteraction{
 
 
     private:
-    user verifiedUser;
+    user *verifiedUser;
     car chosen;
     int days; 
     fileUserDatabase h;

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "car.h"
 
 using namespace std;
 
@@ -12,21 +13,25 @@ class user{
         user(string userName,string password);
       //  string getName();   
         string getUsername(); 
+        string getPassword();
         bool validatePassword(string password);
+        void addCars(int n);
+        void removeCars(int n);
+        vector<int> getCars();
     private:
        // string name;
         string username;
         string password;
+        vector<int> rented;
 };
 
 class userDatabase{
 
     public:
-    user getUser(string username);
+    user* getUser(string username);
     bool verify(string username, string password);
+    
     virtual void load() = 0;
-
-    protected:
     vector<user *> userList;
    
 

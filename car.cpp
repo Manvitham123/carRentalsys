@@ -53,6 +53,15 @@ fileCarDatabase::fileCarDatabase(string filename){
     this->filename = filename;
  }
 
+car fileCarDatabase::getCar(int num){
+  for(auto cars: carList){
+    if(cars->getNumber() == num){
+      return *cars;
+    }
+  }
+  return car(0.0, 0.0, 0, 0, "none",0);
+
+}
 void fileCarDatabase::load(){
     ifstream fin;
     fin.open(filename);

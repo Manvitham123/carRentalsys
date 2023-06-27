@@ -17,6 +17,7 @@ class car{
      void setType(string t);
      void setAvailability(bool a);
      bool getAvailability();
+
     private:
     string type;
     string model;
@@ -41,6 +42,7 @@ class carDatabase{
 class fileCarDatabase: public carDatabase{
     public:
     fileCarDatabase(string filename);
+    car getCar(int num);
     void load();
     private:
     vector<string> getStringTokens(string str, char delim);
